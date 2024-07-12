@@ -1,4 +1,3 @@
-
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
@@ -21,9 +20,11 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.0'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'kotlin'
 apply plugin: 'org.spongepowered.mixin'
 version = mod_version
 group = mod_group_id
@@ -104,6 +105,12 @@ repositories {
         name "Curse Maven"
         url "https://www.cursemaven.com"
     }
+    maven {
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
+        content { includeGroup "thedarkcolour" }
+    }
+    mavenCentral()
 }
 
 dependencies {
@@ -123,6 +130,7 @@ dependencies {
     implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
+    //implementation "thedarkcolour:kotlinforforge:$kff_version"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -142,6 +150,10 @@ tasks.named('processResources', ProcessResources).configure {
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "17"
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
