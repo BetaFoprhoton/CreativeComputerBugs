@@ -8,10 +8,8 @@ abstract class AbstractBlockAPI: ILuaAPI {
     abstract val specificName: String
 
 
-    constructor() {
+    open fun getSupportClass(): Class<out BlockEntity> { return BlockEntity::class.java }
 
-
-    }
 
     override fun getNames(): Array<String> {
         return Array<String>(1){"api$specificName"}

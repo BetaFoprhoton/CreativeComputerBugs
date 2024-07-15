@@ -1,11 +1,9 @@
 package com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core;
 
 import com.beta_foprhoton.creativecomputerbugs.CCBMain;
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPITypes;
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block.create.CreativeMotorAPI;
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block.AllBlockAPIs;
 import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.computer.blocks.IBugComputerHolder;
 import com.google.common.base.Strings;
-import com.simibubi.create.content.kinetics.motor.CreativeMotorBlockEntity;
 import dan200.computercraft.api.ComputerCraftAPI;
 import dan200.computercraft.api.pocket.IPocketAccess;
 import dan200.computercraft.api.pocket.IPocketUpgrade;
@@ -265,11 +263,8 @@ public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProv
             var upgrade = getUpgrade(bugItem);
 
             ((InfectedBlockServerComputer) computer).updateValues(upgrade);
-            try {
-                computer.addAPI(BlockAPITypes.getSuitableAPI(infectedBlockEntity).getDeclaredConstructor(BlockEntity.class).newInstance(infectedBlockEntity));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            AllBlockAPIs.Companion.addAPI(computer, infectedBlockEntity);
         }
 
         infectedBlockEntity.getPersistentData().contains(INFECTED_BLOCK_FLAG);

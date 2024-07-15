@@ -1,6 +1,6 @@
 package com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs;
 
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPITypes;
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block.AllBlockAPIs;
 import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.BugComputerHolder;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorBlockEntity;
 import com.simibubi.create.foundation.utility.RaycastHelper;
@@ -46,7 +46,7 @@ public abstract class AbstractBugItem extends Item {
         var blockEntity = level.getBlockEntity(ray.getPos());
         if (blockEntity == null) return;
         var holder = BugComputerHolder.getBugComputerHolder(blockEntity);
-        if (holder == null && BlockAPITypes.getSuitableAPI(blockEntity) != null)
+        if (holder == null && AllBlockAPIs.getSuitableAPI(blockEntity) != null)
             isActive = true;
         itemStack.getOrCreateTag().putBoolean(NBT_IS_ACTIVE, isActive);
     }

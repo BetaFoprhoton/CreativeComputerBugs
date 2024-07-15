@@ -26,10 +26,6 @@ import static net.minecraft.world.level.block.Block.popResource;
 @Mixin(ArmBlockEntity.class)
 public abstract class ArmBlockEntityMixin {
     @Shadow
-    List<ArmInteractionPoint> inputs;
-    @Shadow
-    List<ArmInteractionPoint> outputs;
-    @Shadow
     ItemStack heldItem;
     @Shadow
     ListTag interactionPointTag;
@@ -39,51 +35,6 @@ public abstract class ArmBlockEntityMixin {
     protected boolean redstoneLocked;
     @Shadow
     ArmBlockEntity.Phase phase;
-    @Shadow
-    ArmAngleTarget previousTarget;
-    LerpedFloat lowerArmAngle;
-    LerpedFloat upperArmAngle;
-    LerpedFloat baseAngle;
-    LerpedFloat headAngle;
-    LerpedFloat clawAngle;
-    float previousBaseAngle;
-    int tooltipWarmup;
-    int chasedPointIndex;
-
-    //
-    protected ScrollOptionBehaviour<ArmBlockEntity.SelectionMode> selectionMode;
-    protected int lastInputIndex = -1;
-    protected int lastOutputIndex = -1;
-    @Shadow
-    protected abstract boolean isOnCeiling();
-    @Shadow
-    protected abstract ArmInteractionPoint getTargetedInteractionPoint();
-
-    @Inject(method = "initInteractionPoints", at = @At("TAIL"), remap = false)
-    protected void initInteractionPoints(CallbackInfo ci) {
-        int previousIndex = chasedPointIndex;
-        ArmBlockEntity.Phase previousPhase = phase;
-        ListTag interactionPointTagBefore = interactionPointTag;
-
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> InstancedRenderDispatcher.enqueueUpdate((ArmBlockEntity)(Object)this));
-
-        boolean ceiling = isOnCeiling();
-        if (interactionPointTagBefore == null || interactionPointTagBefore.size() != interactionPointTag.size())
-            updateInteractionPoints = true;
-        if (previousIndex != chasedPointIndex || (previousPhase != phase)) {
-            ArmInteractionPoint previousPoint = null;
-            if (previousPhase == ArmBlockEntity.Phase.MOVE_TO_INPUT && previousIndex < inputs.size())
-                previousPoint = inputs.get(previousIndex);
-            if (previousPhase == ArmBlockEntity.Phase.MOVE_TO_OUTPUT && previousIndex < outputs.size())
-                previousPoint = outputs.get(previousIndex);
-            if (previousPoint != null) {
-                previousTarget = previousPoint.getTargetAngles(((ArmBlockEntity)(Object)this).getBlockPos(), ceiling);
-            }
-        }
-        ArmInteractionPoint targetedPoint = getTargetedInteractionPoint();
-        if (targetedPoint != null)
-            targetedPoint.updateCachedState();
-    }
 
     @Inject(method = "tick", at = @At("HEAD"), remap = false)
     public void tick(CallbackInfo ci) {
