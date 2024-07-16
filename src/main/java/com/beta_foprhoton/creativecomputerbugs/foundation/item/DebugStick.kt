@@ -36,7 +36,7 @@ class DebugStick(properties: Properties): Item(properties) {
     }
 
     fun setActive() {
-        
+
     }
 
     fun setInActive() {

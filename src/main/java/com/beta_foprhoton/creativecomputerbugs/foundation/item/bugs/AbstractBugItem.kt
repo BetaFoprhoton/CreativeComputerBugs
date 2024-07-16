@@ -1,11 +1,11 @@
 package com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs;
 
 import com.beta_foprhoton.creativecomputerbugs.foundation.helpers.extensions.ItemStackExtensions.getUpgrade
-import dan200.computercraft.shared.computer.core.ComputerFamily;
-import net.minecraft.network.chat.Component;
+import dan200.computercraft.shared.computer.core.ComputerFamily
+import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
 abstract class AbstractBugItem(properties: Properties) : Item(properties) {
@@ -20,7 +20,6 @@ abstract class AbstractBugItem(properties: Properties) : Item(properties) {
         const val NBT_UPGRADE_INFO = "UpgradeInfo"
         const val NBT_IS_ACTIVE = "IsActive"
     }
-
 
     var isActive = false
         set(value) = if (value) setActive() else setInActive()
