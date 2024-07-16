@@ -38,8 +38,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
+import static com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.*;
 import static com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.INFECTED_BLOCK_FLAG;
-import static com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.getUpgrade;
+import static dan200.computercraft.shared.pocket.items.PocketComputerItem.getUpgrade;
 
 public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProvider {
     private int instanceID = -1;

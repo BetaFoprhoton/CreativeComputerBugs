@@ -1,5 +1,6 @@
 package com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block;
 
+import com.beta_foprhoton.creativecomputerbugs.CCBMain
 import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block.create.*;
 import dan200.computercraft.api.lua.ILuaAPI;
 import dan200.computercraft.shared.computer.core.ServerComputer
@@ -16,17 +17,17 @@ enum class AllBlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<
     ;
 
     companion object {
-        private val TYPES = getTypes()
-        private fun getTypes(): HashMap<Class<out BlockEntity>, Class<out ILuaAPI>> {
+        fun getTypes(): HashMap<Class<out BlockEntity>, Class<out ILuaAPI>> {
             val values = HashMap<Class<out BlockEntity>, Class<out ILuaAPI>>();
             entries.forEach { values[it.blockEntity] = it.api }
             return values;
         }
 
-        fun addAPI(computer: ServerComputer, blockEntity: BlockEntity) {
-            val apiClass = TYPES[blockEntity.javaClass] ?: return
-            val api = apiClass.getDeclaredConstructor(BlockEntity::class.java).newInstance(blockEntity) ?: return
+        fun addAPI(computer: ServerComputer, blockEntity: BlockEntity): Boolean {
+            val apiClass = CCBMain.BLOCK_API_REGISTRY[blockEntity.javaClass] ?: return false
+            val api = apiClass.getDeclaredConstructor(BlockEntity::class.java).newInstance(blockEntity) ?: return false
             computer.addAPI(api)
+            return true
         }
     }
 
