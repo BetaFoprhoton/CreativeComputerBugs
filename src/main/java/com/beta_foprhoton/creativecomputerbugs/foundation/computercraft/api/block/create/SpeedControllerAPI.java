@@ -35,8 +35,7 @@ public class SpeedControllerAPI implements ILuaAPI {
         if (blockEntity.hasNetwork())
             blockEntity.getOrCreateNetwork().remove(blockEntity);
         RotationPropagator.handleRemoved(blockEntity.getLevel(), blockEntity.getBlockPos(), blockEntity);
-        blockEntity.removeSource();
-        blockEntity.attachKinetics();
+        blockEntity.updateSpeed = true;
     }
 
     /**

@@ -9,11 +9,13 @@ import kotlin.math.abs
 
 class CreativeMotorAPI(override val blockEntity: CreativeMotorBlockEntity) : AbstractBlockAPI() {
     override val specificName = "Motor"
+
     companion object {
         fun getSupportedClass(): Class<CreativeMotorBlockEntity> {
             return CreativeMotorBlockEntity::class.java
         }
     }
+
     override fun update() {
         blockEntity.updateGeneratedRotation();
     }
@@ -23,7 +25,7 @@ class CreativeMotorAPI(override val blockEntity: CreativeMotorBlockEntity) : Abs
      * @param speed
      */
     @LuaFunction("setSpeed")
-    fun setSpeed (speed: Int): Boolean {
+    fun setSpeed(speed: Int): Boolean {
         if (abs(speed) > CreativeMotorBlockEntity.MAX_SPEED || speed == 0) return false
         blockEntity.persistentData.putInt("ReSpeed", speed)
         blockEntity.getGeneratedSpeed()
@@ -36,8 +38,7 @@ class CreativeMotorAPI(override val blockEntity: CreativeMotorBlockEntity) : Abs
         if (blockEntity.hasNetwork())
             blockEntity.getOrCreateNetwork().remove(blockEntity)
         RotationPropagator.handleRemoved(blockEntity.level, blockEntity.blockPos, blockEntity)
-        blockEntity.removeSource()
-        blockEntity.attachKinetics()
+        blockEntity.updateSpeed = true
     }
 
     /**
@@ -47,7 +48,6 @@ class CreativeMotorAPI(override val blockEntity: CreativeMotorBlockEntity) : Abs
     fun getGeneratedSpeed(): Float {
         return blockEntity.generatedSpeed
     }
-
     /**
      * @return Current Speed
      */
@@ -56,3 +56,4 @@ class CreativeMotorAPI(override val blockEntity: CreativeMotorBlockEntity) : Abs
         return blockEntity.speed
     }
 }
+
