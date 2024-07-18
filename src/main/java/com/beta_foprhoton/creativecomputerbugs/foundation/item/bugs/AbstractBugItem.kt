@@ -34,7 +34,6 @@ abstract class AbstractBugItem(properties: Properties) : Item(properties) {
 
     override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, p_41407_: Int, p_41408_: Boolean) {
         itemStack.getOrCreateTag().putBoolean(NBT_IS_ACTIVE, isActive)
-
     }
 
     override fun getName(stack: ItemStack): Component {
