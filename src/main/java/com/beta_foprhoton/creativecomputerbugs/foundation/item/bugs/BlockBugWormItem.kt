@@ -20,7 +20,7 @@ class BlockBugWormItem(properties: Properties) : AbstractBugItem(properties) {
         val blockEntity = context.level.getBlockEntity(context.clickedPos) ?: return super.useOn(context)
         blockEntity.getBugComputerHolder() ?: return super.useOn(context)
         context.itemInHand.setUpgrade(null)
-        CCBMain.BUG_COMPUTER_HOLDER_REGISTER.create(blockEntity, context.itemInHand.getUpgradeWithData(), family, context.clickedFace) ?: return super.useOn(context)
+        CCBMain.BUG_COMPUTER_HOLDER_REGISTER.createBugHolder(blockEntity, context.itemInHand.getUpgradeWithData(), family, context.clickedFace) ?: return super.useOn(context)
         context.itemInHand.shrink(1)
         return InteractionResult.SUCCESS;
     }

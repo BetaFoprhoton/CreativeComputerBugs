@@ -1,7 +1,7 @@
 package com.beta_foprhoton.creativecomputerbugs.mixin;
 
 import com.beta_foprhoton.creativecomputerbugs.CCBMain;
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.BugComputerHolder;
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.WormComputerHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ public abstract class BlockEntityMixin {
 
     @Inject(method = "setRemoved", at = @At("HEAD"), remap = false)
     public void setRemoved(CallbackInfo ci) {
-        var holder = BugComputerHolder.getBugComputerHolder((BlockEntity) (Object) this);
+        var holder = WormComputerHolder.getBugComputerHolder((BlockEntity) (Object) this);
         if (holder != null)
             CCBMain.BUG_COMPUTER_HOLDER_REGISTER.remove(holder.id);
     }

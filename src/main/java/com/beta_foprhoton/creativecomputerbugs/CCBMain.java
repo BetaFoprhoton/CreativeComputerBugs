@@ -22,7 +22,7 @@ public class CCBMain {
 
     public static final String MODID = "creativecomputerbugs";
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(CCBMain.MODID);
-    public static final BugComputerHolderRegister BUG_COMPUTER_HOLDER_REGISTER = new BugComputerHolderRegister();
+    public static final BugComputerHolderRegister BUG_COMPUTER_HOLDER_REGISTER = new BugComputerHolderRegister(0);
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final String WRITE_TO_DATA_LICENSE = "WRITETODATALICENSE";
     public static final HashMap<Class<? extends BlockEntity>, Class<? extends ILuaAPI>> BLOCK_API_REGISTRY = AllBlockAPIs.Companion.getTypes();

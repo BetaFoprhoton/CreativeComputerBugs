@@ -1,7 +1,6 @@
 package com.beta_foprhoton.creativecomputerbugs.foundation.item;
 
 import com.beta_foprhoton.creativecomputerbugs.CCBMain;
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.BugComputerHolder;
 import com.beta_foprhoton.creativecomputerbugs.foundation.helpers.extensions.BlockEntityExtensions.getBugComputerHolder
 import com.beta_foprhoton.creativecomputerbugs.foundation.helpers.extensions.BlockEntityExtensions.isAPISupported
 import com.simibubi.create.foundation.utility.RaycastHelper;
@@ -15,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 class DebugStick(properties: Properties): Item(properties) {
     private var isActive = false

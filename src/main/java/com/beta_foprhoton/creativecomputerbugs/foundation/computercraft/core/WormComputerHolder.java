@@ -31,6 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
@@ -38,11 +39,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-import static com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.*;
 import static com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.INFECTED_BLOCK_FLAG;
 import static dan200.computercraft.shared.pocket.items.PocketComputerItem.getUpgrade;
 
-public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProvider {
+public class WormComputerHolder implements IBugComputerHolder, Nameable, MenuProvider {
     private int instanceID = -1;
     private int computerID = -1;
     public final int id;
@@ -62,7 +62,7 @@ public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProv
     private final ComputerFamily family;
     private final Direction positiveDirection;
 
-    public BugComputerHolder(@NotNull BlockEntity infectedBlockEntity, ItemStack bugItem, @Nullable UpgradeData<IPocketUpgrade> upgrade, ComputerFamily family, Direction clickDirection, int id) {
+    public WormComputerHolder(@NotNull BlockEntity infectedBlockEntity, ItemStack bugItem, @Nullable UpgradeData<IPocketUpgrade> upgrade, ComputerFamily family, Direction clickDirection, int id) {
         this.infectedBlockEntity = infectedBlockEntity;
         this.bugItem = bugItem;
         this.upgrade = upgrade;
@@ -72,6 +72,7 @@ public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProv
         infectedBlockEntity.getPersistentData().putInt(INFECTED_BLOCK_FLAG, id);
     }
 
+    @Override
     public void unload() {
         if (getLevel().isClientSide) return;
         var computer = getServerComputer();
@@ -94,7 +95,8 @@ public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProv
         return BlockEntityHelpers.DEFAULT_INTERACT_RANGE;
     }
 
-    public void serverTick() {
+    @Override
+    public void tick() {
         if (getLevel().isClientSide) return;
         if (computerID < 0 && !startOn) return; // Don't tick if we don't need a computer!
         if (infectedBlockEntity.isRemoved())
@@ -243,6 +245,11 @@ public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProv
         return family;
     }
 
+    @Override
+    public void popResource() {
+        Block.popResource(this.getLevel(), this.getInfectedBlockEntity().getBlockPos(), this.getBugItem());
+    }
+
     public final ServerComputer createServerComputer() {
         var server = getLevel().getServer();
         if (server == null) throw new IllegalStateException("Cannot access server computer on the client.");
@@ -325,9 +332,9 @@ public class BugComputerHolder implements IBugComputerHolder, Nameable, MenuProv
     }
 
     @Nullable
-    public static BugComputerHolder getBugComputerHolder(BlockEntity blockEntity) {
+    public static WormComputerHolder getBugComputerHolder(BlockEntity blockEntity) {
         if (blockEntity.getPersistentData().contains(INFECTED_BLOCK_FLAG))
-            return CCBMain.BUG_COMPUTER_HOLDER_REGISTER.getHolder(blockEntity.getPersistentData().getInt(INFECTED_BLOCK_FLAG));
+            return (WormComputerHolder) CCBMain.BUG_COMPUTER_HOLDER_REGISTER.getHolder(blockEntity.getPersistentData().getInt(INFECTED_BLOCK_FLAG));
         return null;
     }
 
