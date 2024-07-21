@@ -1,5 +1,6 @@
 package com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.block
 
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPIs
 import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
 import com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
 import dan200.computercraft.api.pocket.IPocketUpgrade
@@ -36,7 +37,7 @@ class WormComputerHolder(
     }
 
     override fun addAPIForComputer(computer: ServerComputer) {
-
+        BlockAPIs.addAPI(computer, blockEntity)
     }
 
     override fun createComputer(id: Int, level: ServerLevel): ServerComputer {
