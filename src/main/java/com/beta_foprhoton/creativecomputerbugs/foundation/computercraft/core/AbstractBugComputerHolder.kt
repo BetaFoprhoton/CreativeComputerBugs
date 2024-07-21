@@ -1,6 +1,5 @@
 package com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core
 
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.computer.blocks.IBugComputerHolder
 import com.beta_foprhoton.creativecomputerbugs.foundation.helpers.extensions.ItemStackExtensions.getUpgrade
 import com.google.common.base.Strings
 import dan200.computercraft.api.ComputerCraftAPI
@@ -15,8 +14,8 @@ import dan200.computercraft.shared.computer.core.ServerContext
 import dan200.computercraft.shared.computer.inventory.ComputerMenuWithoutInventory
 import dan200.computercraft.shared.util.BlockEntityHelpers
 import dan200.computercraft.shared.util.IDAssigner
-import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.Nameable
 import net.minecraft.world.entity.player.Inventory
@@ -40,20 +39,20 @@ abstract class AbstractBugComputerHolder(
     private var fresh = false
     private val bugItem: ItemStack = bugItem
     private var upgrade: UpgradeData<IPocketUpgrade> = upgrade
+    private val level: Level? = this.getLevel()
 
     init {
-        putMark()
+        this.putMark()
     }
 
     abstract fun putMark()
     abstract fun removeMark()
-    abstract fun getLevel(): Level
+    abstract fun getLevel(): Level?
     abstract fun isUsableByPlayer(player: Player): Boolean
-    protected abstract fun getDirection(): Direction
     abstract fun addAPIForComputer(computer: ServerComputer)
 
     override fun unload() {
-        if (getLevel().isClientSide) return;
+        if (getLevel()?.isClientSide == true) return
         getServerComputer()?.close()
         removeMark()
         instanceID = -1;
@@ -65,7 +64,7 @@ abstract class AbstractBugComputerHolder(
 
     @Override
     override fun tick() {
-        if (getLevel().isClientSide) return
+        if (level?.isClientSide == true) return
         if (computerID < 0 && !startOn) return // Don't tick if we don't need a computer!
 
         val computer = createServerComputer()
@@ -90,20 +89,20 @@ abstract class AbstractBugComputerHolder(
         upgrade1?.update(computer as IPocketAccess, computer.getPeripheral(ComputerSide.BACK))
     }
 
-    protected abstract fun createComputer(id: Int): ServerComputer
+    protected abstract fun createComputer(id: Int, level: ServerLevel): ServerComputer
 
     override fun getComputerID(): Int = computerID
 
     override fun getLabel(): String? = label
 
     override fun setComputerID(id: Int) {
-        if (getLevel().isClientSide || computerID == id) return
+        if (level?.isClientSide ?: return || computerID == id) return
         computerID = id
         setChanged()
     }
 
     override fun setLabel(label: String?) {
-        if (getLevel().isClientSide || Objects.equals(this.label, label)) return
+        if (level?.isClientSide ?: return || Objects.equals(this.label, label)) return
         this.label = label
         getServerComputer()?.label = label
         setChanged()
@@ -114,14 +113,14 @@ abstract class AbstractBugComputerHolder(
     override fun getFamily(): ComputerFamily = family
 
     fun createServerComputer(): ServerComputer {
-        val server = getLevel().server ?: throw IllegalStateException("Cannot access server computer on the client.")
+        val server = level?.server ?: throw IllegalStateException("Cannot access server computer on the client.")
         var computer = ServerContext.get(server).registry().get(instanceID)
         if (computer == null) {
             if (computerID < 0) {
                 computerID = ComputerCraftAPI.createUniqueNumberedSaveDir(server, IDAssigner.COMPUTER);
             }
 
-            computer = createComputer(computerID)
+            computer = createComputer(computerID, level as ServerLevel)
             instanceID = computer.register()
             fresh = true
 
@@ -135,8 +134,9 @@ abstract class AbstractBugComputerHolder(
     }
 
     fun getServerComputer(): ServerComputer? {
-        return if (getLevel().isClientSide || getLevel().server == null)
-             null else ServerContext.get(getLevel().server).registry().get(instanceID)
+        level?: return null
+        return if (level.isClientSide || level.server == null)
+             null else ServerContext.get(level.server).registry().get(instanceID)
     }
 
     // Networking stuff

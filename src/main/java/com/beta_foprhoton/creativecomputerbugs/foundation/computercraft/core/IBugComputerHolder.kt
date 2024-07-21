@@ -1,8 +1,6 @@
-package com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.computer.blocks;
+package com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core;
 
 import dan200.computercraft.shared.computer.core.ComputerFamily;
-
-import javax.annotation.Nullable;
 
 interface IBugComputerHolder {
     fun getComputerID(): Int

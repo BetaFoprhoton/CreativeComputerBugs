@@ -1,7 +1,7 @@
 package com.beta_foprhoton.creativecomputerbugs.mixin;
 
 import com.beta_foprhoton.creativecomputerbugs.CCBMain;
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.WormComputerHolder;
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.block.WormComputerHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

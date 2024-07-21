@@ -1,47 +1,76 @@
 package com.beta_foprhoton.creativecomputerbugs.registy;
 
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.computer.blocks.IBugComputerHolder
-import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.WormComputerHolder
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.block.WormComputerHolder
+import com.beta_foprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
+import com.beta_foprhoton.creativecomputerbugs.foundation.helpers.extensions.BlockEntityExtensions.getBugComputerHolder
+import com.beta_foprhoton.creativecomputerbugs.foundation.helpers.extensions.EntityExtensions.getBugComputerHolder
 import dan200.computercraft.api.pocket.IPocketUpgrade
 import dan200.computercraft.api.upgrades.UpgradeData
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import net.minecraft.core.Direction
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.block.entity.BlockEntity
 
 class BugComputerHolderRegister(private var idCounter: Int) {
-    private val registry = HashMap<Int , IBugComputerHolder>()
+    private val wormRegistry = HashMap<Int , WormComputerHolder>()
+    private val parasiteRegistry = HashMap<Int , ParasiteComputerHolder>()
 
-    fun getHolder(id: Int): IBugComputerHolder? {
-        return registry[id]
+    fun getWormComputerHolder(id: Int): WormComputerHolder? {
+        return wormRegistry[id]
+    }
+
+    fun getParasiteComputerHolder(id: Int): ParasiteComputerHolder? {
+        return parasiteRegistry[id]
     }
     
     fun tick() {
-        registry.forEach {
-            it.value.tick()
-        }
+        wormRegistry.forEach { it.value.tick() }
+        parasiteRegistry.forEach { it.value.tick() }
     }
 
-    fun createBugHolder(infectBlockEntity: BlockEntity, upgrade: UpgradeData<IPocketUpgrade>, family: ComputerFamily, direction: Direction): WormComputerHolder? {
-        val holderOld = WormComputerHolder.getBugComputerHolder(infectBlockEntity)
+    fun createWormComputerHolder(infectBlockEntity: BlockEntity, upgrade: UpgradeData<IPocketUpgrade>, family: ComputerFamily): WormComputerHolder? {
+        val holderOld = infectBlockEntity.getBugComputerHolder()
         if (holderOld != null) return null
-        val holder =
-            WormComputerHolder(
-                infectBlockEntity,
-                CCBItems.BUG_WORM.asStack(),
-                upgrade,
-                family,
-                direction,
-                idCounter
-            )
-        registry[holder.id] = holder
+        val holder = WormComputerHolder(
+            family = family,
+            bugItem = CCBItems.BUG_WORM.asStack(),
+            upgrade = upgrade,
+            id = idCounter,
+            blockEntity = infectBlockEntity
+        )
+        wormRegistry[holder.id] = holder
+        idCounter ++
+        return holder
+    }
+
+    fun createParasiteComputerHolder(entity: Entity, upgrade: UpgradeData<IPocketUpgrade>, family: ComputerFamily): ParasiteComputerHolder? {
+        val holderOld = entity.getBugComputerHolder()
+        if (holderOld != null) return null
+        val holder = ParasiteComputerHolder(
+            family = family,
+            bugItem = CCBItems.BUG_WORM.asStack(),
+            upgrade = upgrade,
+            id = idCounter,
+            entity = entity
+        )
+        parasiteRegistry[holder.id] = holder
         idCounter ++
         return holder
     }
 
     fun remove(id: Int) {
-        var holder = registry[id] ?: return
-        holder.unload()
-        registry.remove(id)
-        holder.popResource()
+        val holder1 = wormRegistry[id]
+        if (holder1 != null) {
+            holder1.unload()
+            wormRegistry.remove(id)
+            holder1.popResource()
+        }
+        val holder2 = parasiteRegistry[id]
+        if (holder2 != null) {
+            holder2.unload()
+            parasiteRegistry.remove(id)
+            holder2.popResource()
+        }
     }
 }

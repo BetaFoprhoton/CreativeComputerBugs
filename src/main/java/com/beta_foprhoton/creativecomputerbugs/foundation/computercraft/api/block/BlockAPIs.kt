@@ -8,17 +8,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.HashMap;
 
-enum class AllBlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<out ILuaAPI>) {
-
+enum class BlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<out AbstractBlockAPI>) {
     CREATIVE_MOTOR(CreativeMotorAPI.getSupportedClass(), CreativeMotorAPI::class.java),
     SPEED_CONTROLLER(SpeedControllerAPI.getSupportedClass(), SpeedControllerAPI::class.java),
-    MECHANICAL_ARM(MechanicalArmAPI.SUPPORTED_BLOCK_ENTITY_CLASS, MechanicalArmAPI::class.java)
+    MECHANICAL_ARM(MechanicalArmAPI.getSupportedClass(), MechanicalArmAPI::class.java)
 
     ;
 
     companion object {
-        fun getTypes(): HashMap<Class<out BlockEntity>, Class<out ILuaAPI>> {
-            val values = HashMap<Class<out BlockEntity>, Class<out ILuaAPI>>();
+        fun getTypes(): HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>> {
+            val values = HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>>();
             entries.forEach { values[it.blockEntity] = it.api }
             return values;
         }
@@ -30,5 +29,4 @@ enum class AllBlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<
             return true
         }
     }
-
 }

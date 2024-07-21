@@ -9,6 +9,6 @@ abstract class AbstractEntityAPI: ILuaAPI {
     abstract val specificName: String
 
     override fun getNames(): Array<String> {
-        return Array<String>(1){"api$specificName"}
+        return Array(1){"api$specificName"}
     }
 }
