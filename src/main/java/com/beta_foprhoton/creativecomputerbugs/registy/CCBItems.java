@@ -1,7 +1,7 @@
 package com.beta_foprhoton.creativecomputerbugs.registy;
 
 import com.beta_foprhoton.creativecomputerbugs.foundation.item.DebugStick;
-import com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.BlockBugWormItem;
+import com.beta_foprhoton.creativecomputerbugs.foundation.item.bugs.WormItem;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraftforge.fml.common.Mod;
@@ -14,8 +14,8 @@ public class CCBItems {
         REGISTRATE.setCreativeTab(AllCreativeModeTabs.BASE_CREATIVE_TAB);
     }
 
-    public static final ItemEntry<BlockBugWormItem> BUG_WORM = REGISTRATE
-            .item("bug_worm", BlockBugWormItem::new)
+    public static final ItemEntry<WormItem> BUG_WORM = REGISTRATE
+            .item("bug_worm", WormItem::new)
             .register();
 
     public static final ItemEntry<DebugStick> DEBUG_STICK = REGISTRATE
