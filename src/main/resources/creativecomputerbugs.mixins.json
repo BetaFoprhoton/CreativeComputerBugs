@@ -8,6 +8,7 @@
     "ArmBlockEntityMixin",
     "BlockEntityMixin",
     "CreativeMotorBlockEntityMixin",
+    "RedstoneLinkBlockEntityMixin",
     "ServerContextMixin"
   ],
   "refmap": "create.refmap.json",

@@ -17,5 +17,4 @@ class MobAPI(override val entity: Mob, override val specificName: String = "Mob"
     fun jump() {
         entity.jumpControl.jump()
     }
-
 }

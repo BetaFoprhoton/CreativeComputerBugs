@@ -11,8 +11,9 @@ import net.minecraft.world.item.ItemStack
 
 class ParasiteItem(properties: Properties): AbstractBugItem(properties) {
     override fun interactLivingEntity(itemStack: ItemStack, player: Player, livingEntity: LivingEntity, hand: InteractionHand): InteractionResult {
-        UpgradeData
-        val holder = CCBMain.BUG_COMPUTER_HOLDER_REGISTER.createParasiteComputerHolder(livingEntity, itemStack.getUpgradeWithData(), family) ?: return InteractionResult.PASS
+        val holder = itemStack.getUpgradeWithData()
+            ?.let { CCBMain.BUG_COMPUTER_HOLDER_REGISTER.createParasiteComputerHolder(livingEntity, it, family) }
+            ?: return InteractionResult.PASS
         itemStack.shrink(1)
         return InteractionResult.SUCCESS
     }
