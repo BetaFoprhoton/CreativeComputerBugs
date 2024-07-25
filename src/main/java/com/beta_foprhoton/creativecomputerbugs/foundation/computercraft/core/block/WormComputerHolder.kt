@@ -50,7 +50,7 @@ class WormComputerHolder(
             terminalWidth = 1,
             terminalHeight = 1,
             blockEntity = blockEntity,
-            bugItem = getBugItem()
+            bugItem = getBug()
         )
     }
 
@@ -59,6 +59,6 @@ class WormComputerHolder(
     }
 
     override fun popResource() {
-        blockEntity.level?.let { Block.popResource(it, blockEntity.blockPos, getBugItem()) }
+        blockEntity.level?.let { Block.popResource(it, blockEntity.blockPos, getBug()) }
     }
 }

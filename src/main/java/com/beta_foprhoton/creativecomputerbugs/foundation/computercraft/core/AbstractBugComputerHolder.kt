@@ -91,7 +91,7 @@ abstract class AbstractBugComputerHolder(
 
     override fun getComputerID(): Int = computerID
 
-    override fun getLabel(): String? = label
+    override fun getComputerLabel(): String? = label
 
     override fun setComputerID(id: Int) {
         if (level?.isClientSide ?: return || computerID == id) return
@@ -99,7 +99,7 @@ abstract class AbstractBugComputerHolder(
         setChanged()
     }
 
-    override fun setLabel(label: String?) {
+    override fun setComputerLabel(label: String?) {
         if (level?.isClientSide ?: return || Objects.equals(this.label, label)) return
         this.label = label
         getServerComputer()?.label = label
@@ -179,5 +179,5 @@ abstract class AbstractBugComputerHolder(
         return ComputerMenuWithoutInventory(ModRegistry.Menus.COMPUTER.get(), id, inventory, this::isUsableByPlayer, createServerComputer(), getFamily());
     }
 
-    fun getBugItem() = bugItem
+    fun getBug() = bugItem
 }

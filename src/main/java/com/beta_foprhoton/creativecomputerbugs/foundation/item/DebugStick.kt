@@ -45,11 +45,11 @@ class DebugStick(properties: Properties): Item(properties) {
         if (context.player !is ServerPlayer) return super.useOn(context)
         val blockEntity = context.level.getBlockEntity(context.clickedPos) ?: return super.useOn(context)
         val holder = blockEntity.getBugComputerHolder() ?: return super.useOn(context)
-        if (context.level.isClientSide || !holder.isUsable(context.player)) return super.useOn(context)
+        if (context.level.isClientSide || !holder.isUsableByPlayer(context.player as ServerPlayer)) return super.useOn(context)
         if ((context.player as ServerPlayer).isShiftKeyDown) {
             val computer = holder.createServerComputer()
             computer.turnOn();
-            ComputerContainerData(computer, holder.bugItem).open(context.player, holder)
+            ComputerContainerData(computer, holder.getBug()).open(context.player, holder)
         } else {
             CCBMain.BUG_COMPUTER_HOLDER_REGISTER.remove(holder.id)
         }

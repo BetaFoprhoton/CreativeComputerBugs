@@ -58,7 +58,7 @@ class ParasiteComputerHolder(
             family = getFamily(),
             terminalWidth = 1,
             terminalHeight = 1,
-            bugItem = getBugItem(),
+            bugItem = getBug(),
             entity = entity
         )
     }
@@ -68,6 +68,6 @@ class ParasiteComputerHolder(
     }
 
     override fun popResource() {
-        Block.popResource(entity.level(), entity.blockPosition(), getBugItem())
+        Block.popResource(entity.level(), entity.blockPosition(), getBug())
     }
 }

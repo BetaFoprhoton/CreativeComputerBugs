@@ -8,13 +8,13 @@ interface IBugComputerHolder {
     fun setComputerID(id: Int)
 
 
-    fun getLabel(): String?
+    fun getComputerLabel(): String?
 
     fun tick()
 
     fun unload()
 
-    fun setLabel(label: String?)
+    fun setComputerLabel(label: String?)
 
     fun getFamily(): ComputerFamily
 
