@@ -7,11 +7,9 @@ import dan200.computercraft.api.pocket.IPocketUpgrade
 import dan200.computercraft.api.upgrades.UpgradeData
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
-import net.minecraft.client.particle.Particle
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
@@ -20,7 +18,7 @@ import net.minecraft.world.level.block.Block
 class ParasiteComputerHolder(
     family: ComputerFamily,
     bugItem: ItemStack,
-    upgrade: UpgradeData<IPocketUpgrade>,
+    upgrade: UpgradeData<IPocketUpgrade>?,
     id: Int,
     private val entity: Entity
     ): AbstractBugComputerHolder(family, bugItem, upgrade, id) {

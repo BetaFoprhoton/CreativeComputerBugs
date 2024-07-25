@@ -27,18 +27,16 @@ import java.util.*
 
 abstract class AbstractBugComputerHolder(
     private val family: ComputerFamily,
-    bugItem: ItemStack,
-    upgrade: UpgradeData<IPocketUpgrade>,
+    private val bugItem: ItemStack,
+    private var upgrade: UpgradeData<IPocketUpgrade>?,
     val id: Int
 ) : IBugComputerHolder, Nameable, MenuProvider {
     private var instanceID = -1
     private var computerID = -1
     protected var label: String? = null
     private var on = false
-    var startOn = false
+    private var startOn = false
     private var fresh = false
-    private val bugItem: ItemStack = bugItem
-    private var upgrade: UpgradeData<IPocketUpgrade> = upgrade
     private val level: Level? = this.getLevel()
 
     init {
@@ -71,7 +69,7 @@ abstract class AbstractBugComputerHolder(
 
         var upgrade1: IPocketUpgrade? = null
         if (upgrade != null) {
-            upgrade1 = upgrade.upgrade();
+            upgrade1 = upgrade!!.upgrade();
         }
 
         if (startOn || (fresh && on)) {

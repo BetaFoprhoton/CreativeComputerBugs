@@ -29,7 +29,7 @@ class BugComputerHolderRegister(private var idCounter: Int) {
         parasiteRegistry.forEach { it.value.tick() }
     }
 
-    fun createWormComputerHolder(infectBlockEntity: BlockEntity, upgrade: UpgradeData<IPocketUpgrade>, family: ComputerFamily): WormComputerHolder? {
+    fun createWormComputerHolder(infectBlockEntity: BlockEntity, upgrade: UpgradeData<IPocketUpgrade>?, family: ComputerFamily): WormComputerHolder? {
         val holderOld = infectBlockEntity.getBugComputerHolder()
         if (holderOld != null) return null
         val holder = WormComputerHolder(
@@ -44,7 +44,7 @@ class BugComputerHolderRegister(private var idCounter: Int) {
         return holder
     }
 
-    fun createParasiteComputerHolder(entity: Entity, upgrade: UpgradeData<IPocketUpgrade>, family: ComputerFamily): ParasiteComputerHolder? {
+    fun createParasiteComputerHolder(entity: Entity, upgrade: UpgradeData<IPocketUpgrade>?, family: ComputerFamily): ParasiteComputerHolder? {
         val holderOld = entity.getBugComputerHolder()
         if (holderOld != null) return null
         val holder = ParasiteComputerHolder(

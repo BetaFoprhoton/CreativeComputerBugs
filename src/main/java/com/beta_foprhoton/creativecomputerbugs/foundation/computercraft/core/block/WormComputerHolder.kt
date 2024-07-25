@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 
 class WormComputerHolder(
-    family: ComputerFamily, bugItem: ItemStack, upgrade: UpgradeData<IPocketUpgrade>,
+    family: ComputerFamily, bugItem: ItemStack, upgrade: UpgradeData<IPocketUpgrade>?,
     id: Int, private val blockEntity: BlockEntity
 ) : AbstractBugComputerHolder(family,
     bugItem, upgrade, id
