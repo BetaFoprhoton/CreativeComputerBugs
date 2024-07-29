@@ -12,7 +12,6 @@ out
 *.iws
 *.iml
 .idea
-.log
 
 # gradle
 build
@@ -22,8 +21,10 @@ build
 eclipse
 run
 .DS_Store
+_MACOSX
 .kotlin
 
 # Files from Forge MDK
 forge*changelog.txt
 CREDITS.txt
+*.log
