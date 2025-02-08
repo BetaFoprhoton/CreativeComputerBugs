@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "priority": 1200,
-  "package": "com.beta_foprhoton.creativecomputerbugs.mixin",
+  "package": "com.betafoprhoton.creativecomputerbugs.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ArmBlockEntityMixin",
