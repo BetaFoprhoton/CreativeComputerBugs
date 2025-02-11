@@ -11,7 +11,7 @@ class MobAPI(override val entity: Mob, override val specificName: String = "Mob"
     }
 
     /**
-     * Let this mob jump.
+     * Make this mob jump.
      */
     @LuaFunction("jump")
     fun jump() {

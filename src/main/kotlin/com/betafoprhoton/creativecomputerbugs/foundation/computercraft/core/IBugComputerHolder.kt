@@ -7,7 +7,6 @@ interface IBugComputerHolder {
 
     fun setComputerID(id: Int)
 
-
     fun getComputerLabel(): String?
 
     fun tick()

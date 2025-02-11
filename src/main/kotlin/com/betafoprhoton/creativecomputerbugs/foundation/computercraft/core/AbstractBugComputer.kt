@@ -15,7 +15,6 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import java.util.*
-import java.util.Map
 import kotlin.collections.MutableMap
 
 abstract class AbstractBugComputer(
@@ -61,7 +60,7 @@ abstract class AbstractBugComputer(
     }
 
     override fun getUpgrades(): MutableMap<ResourceLocation, IPeripheral> {
-        return if (upgrade == null) Map.of() else Collections.singletonMap(upgrade!!.upgradeID, getPeripheral(ComputerSide.BACK))
+        return if (upgrade == null) mutableMapOf() else Collections.singletonMap(upgrade!!.upgradeID, getPeripheral(ComputerSide.BACK))
     }
 
     fun getUpgrade(): UpgradeData<IPocketUpgrade>? {

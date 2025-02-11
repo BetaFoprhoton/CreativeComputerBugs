@@ -1,4 +1,4 @@
-package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.block;
+package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.block
 
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputer
 import dan200.computercraft.shared.computer.core.ComputerFamily

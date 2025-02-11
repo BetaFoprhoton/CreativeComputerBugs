@@ -1,4 +1,4 @@
-package com.betafoprhoton.creativecomputerbugs.registy;
+package com.betafoprhoton.creativecomputerbugs.registy
 
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.block.WormComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder

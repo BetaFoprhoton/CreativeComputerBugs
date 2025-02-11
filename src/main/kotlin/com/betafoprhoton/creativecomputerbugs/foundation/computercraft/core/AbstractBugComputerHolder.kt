@@ -2,7 +2,6 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core
 
 import com.betafoprhoton.creativecomputerbugs.foundation.helpers.extensions.ItemStackExtensions.getUpgrade
 import com.google.common.base.Strings
-import com.simibubi.create.AllBlocks
 import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.pocket.IPocketUpgrade
@@ -55,7 +54,6 @@ abstract class AbstractBugComputerHolder(
         getServerComputer()?.close()
         removeMark()
         instanceID = -1
-        AllBlocks
     }
 
     protected fun getInteractRange(): Double {
@@ -71,7 +69,7 @@ abstract class AbstractBugComputerHolder(
 
         var upgrade1: IPocketUpgrade? = null
         if (upgrade != null) {
-            upgrade1 = upgrade!!.upgrade();
+            upgrade1 = upgrade!!.upgrade()
         }
 
         if (startOn || (fresh && on)) {
@@ -117,7 +115,7 @@ abstract class AbstractBugComputerHolder(
         var computer = ServerContext.get(server).registry().get(instanceID)
         if (computer == null) {
             if (computerID < 0) {
-                computerID = ComputerCraftAPI.createUniqueNumberedSaveDir(server, IDAssigner.COMPUTER);
+                computerID = ComputerCraftAPI.createUniqueNumberedSaveDir(server, IDAssigner.COMPUTER)
             }
 
             computer = createComputer(computerID, level as ServerLevel)
@@ -130,7 +128,7 @@ abstract class AbstractBugComputerHolder(
 
             addAPIForComputer(computer)
         }
-        return computer;
+        return computer
     }
 
     fun getServerComputer(): ServerComputer? {
@@ -178,7 +176,7 @@ abstract class AbstractBugComputerHolder(
     }
 
     override fun createMenu(id: Int, inventory: Inventory, player: Player): AbstractContainerMenu {
-        return ComputerMenuWithoutInventory(ModRegistry.Menus.COMPUTER.get(), id, inventory, this::isUsableByPlayer, createServerComputer(), getFamily());
+        return ComputerMenuWithoutInventory(ModRegistry.Menus.COMPUTER.get(), id, inventory, this::isUsableByPlayer, createServerComputer(), getFamily())
     }
 
     fun getBug() = bugItem
