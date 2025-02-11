@@ -1,10 +1,7 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.entity
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain
 import dan200.computercraft.shared.computer.core.ServerComputer
 import net.minecraft.world.entity.Entity
-import java.util.HashMap
-
 
 enum class EntityAPIs(val entity: Class<out Entity>, val api: Class<out AbstractEntityAPI>) {
     MOB(MobAPI.getSupportedClass(), MobAPI::class.java)
@@ -12,7 +9,9 @@ enum class EntityAPIs(val entity: Class<out Entity>, val api: Class<out Abstract
     ;
 
     companion object {
-        fun getTypes(): HashMap<Class<out Entity>, Class<out AbstractEntityAPI>> {
+        private val ENTITY_API_REGISTRY = getTypes()
+
+        private fun getTypes(): HashMap<Class<out Entity>, Class<out AbstractEntityAPI>> {
             val values = HashMap<Class<out Entity>, Class<out AbstractEntityAPI>>()
             EntityAPIs.entries.forEach { values[it.entity] = it.api }
             return values
@@ -20,7 +19,7 @@ enum class EntityAPIs(val entity: Class<out Entity>, val api: Class<out Abstract
 
         fun <T> addAPI(computer: ServerComputer, entity: T): Boolean {
             var flag = false
-            CCBMain.ENTITY_API_REGISTRY.forEach { (entityClass, apiClass) ->
+            ENTITY_API_REGISTRY.forEach { (entityClass, apiClass) ->
                 entity!!::class.java.classes.forEach {
                       if (it == entityClass) {
                           val api = apiClass.getDeclaredConstructor(Entity::class.java).newInstance(entity) ?: return false
@@ -30,6 +29,11 @@ enum class EntityAPIs(val entity: Class<out Entity>, val api: Class<out Abstract
                 }
             }
             return flag
+        }
+
+        fun isAPISupported(entity: Entity): Boolean {
+            //TODO: Need to determine the inheritance relationship of a reflection class.
+            return true
         }
     }
 }

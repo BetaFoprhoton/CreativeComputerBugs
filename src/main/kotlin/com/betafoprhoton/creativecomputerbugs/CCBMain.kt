@@ -26,9 +26,6 @@ class CCBMain {
         @JvmField
         val LOGGER = LogUtils.getLogger()
         const val INFECTED_BLOCK_FLAG = "InfectedComputerID"
-        val BLOCK_API_REGISTRY: HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>> = BlockAPIs.getTypes()
-        val ENTITY_API_REGISTRY: HashMap<Class<out Entity>, Class<out AbstractEntityAPI>> = EntityAPIs.getTypes()
-
     }
 
     init {

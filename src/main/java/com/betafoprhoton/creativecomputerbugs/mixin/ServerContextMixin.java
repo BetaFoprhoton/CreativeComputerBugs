@@ -1,6 +1,5 @@
 package com.betafoprhoton.creativecomputerbugs.mixin;
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain;
 import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister;
 import dan200.computercraft.shared.computer.core.ServerContext;
 import org.spongepowered.asm.mixin.Mixin;
