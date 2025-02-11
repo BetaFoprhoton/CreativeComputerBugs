@@ -4,9 +4,11 @@ import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block
 import com.simibubi.create.content.kinetics.RotationPropagator;
 import com.simibubi.create.content.kinetics.speedController.SpeedControllerBlockEntity;
 import dan200.computercraft.api.lua.LuaFunction;
+import net.minecraft.world.level.block.entity.BlockEntity
 
-class SpeedControllerAPI(override val blockEntity: SpeedControllerBlockEntity) : AbstractBlockAPI() {
+class SpeedControllerAPI(override val abstractBlockEntity: BlockEntity) : AbstractBlockAPI() {
     override val specificName = "SpeedController"
+    private val blockEntity = abstractBlockEntity as SpeedControllerBlockEntity
 
     companion object {
         fun getSupportedClass(): Class<SpeedControllerBlockEntity> {

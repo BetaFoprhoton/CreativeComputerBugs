@@ -9,9 +9,11 @@ import dan200.computercraft.api.lua.LuaFunction
 import dan200.computercraft.api.lua.MethodResult
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.Tag
+import net.minecraft.world.level.block.entity.BlockEntity
 
-class MechanicalArmAPI(override val blockEntity: ArmBlockEntity) : AbstractBlockAPI() {
+class MechanicalArmAPI(override val abstractBlockEntity: BlockEntity) : AbstractBlockAPI() {
     override val specificName = "Motor"
+    val blockEntity = abstractBlockEntity as ArmBlockEntity
 
     companion object {
         fun getSupportedClass(): Class<ArmBlockEntity> {

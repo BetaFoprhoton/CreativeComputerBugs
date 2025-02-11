@@ -1,6 +1,5 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.item.bugs
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain
 import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister.Companion.createParasiteComputerHolder
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult

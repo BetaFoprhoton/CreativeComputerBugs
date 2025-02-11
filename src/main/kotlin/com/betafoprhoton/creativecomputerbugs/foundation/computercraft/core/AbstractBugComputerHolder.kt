@@ -6,7 +6,6 @@ import com.google.common.base.Strings
 import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.api.pocket.IPocketAccess
 import dan200.computercraft.api.pocket.IPocketUpgrade
-import dan200.computercraft.api.upgrades.UpgradeData
 import dan200.computercraft.core.computer.ComputerSide
 import dan200.computercraft.shared.ModRegistry
 import dan200.computercraft.shared.computer.core.ComputerFamily
@@ -29,7 +28,8 @@ import java.util.*
 abstract class AbstractBugComputerHolder(
     private val family: ComputerFamily,
     private val bugItem: ItemStack,
-    val id: Int
+    val id: Int,
+    private val level: Level?
 ) : IBugComputerHolder, Nameable, MenuProvider {
     private var instanceID = -1
     private var computerID = -1
@@ -37,21 +37,16 @@ abstract class AbstractBugComputerHolder(
     private var on = false
     private var startOn = false
     private var fresh = false
-    private val level: Level? = this.getLevel()
-    private var upgrade = bugItem.getUpgradeWithData()
 
-    init {
-        this.putMark()
-    }
+    private var upgrade = bugItem.getUpgradeWithData()
 
     abstract fun putMark()
     abstract fun removeMark()
-    abstract fun getLevel(): Level?
     abstract fun isUsableByPlayer(player: Player): Boolean
     abstract fun addAPIForComputer(computer: ServerComputer)
 
     override fun unload() {
-        if (getLevel()?.isClientSide == true) return
+        if (level?.isClientSide == true) return
         getServerComputer()?.close()
         removeMark()
         instanceID = -1

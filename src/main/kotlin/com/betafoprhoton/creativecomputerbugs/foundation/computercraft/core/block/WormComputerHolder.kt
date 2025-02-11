@@ -3,12 +3,12 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.blo
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPIs
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
+import com.betafoprhoton.creativecomputerbugs.registy.CCBConfig
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 
@@ -17,7 +17,11 @@ class WormComputerHolder(
     bugItem: ItemStack,
     id: Int,
     private val blockEntity: BlockEntity
-) : AbstractBugComputerHolder(family, bugItem, id) {
+) : AbstractBugComputerHolder(family, bugItem, id, blockEntity.level) {
+
+    init {
+        putMark()
+    }
 
     override fun putMark() {
         blockEntity.persistentData.putInt(INFECTED_BLOCK_FLAG, id)
@@ -25,10 +29,6 @@ class WormComputerHolder(
 
     override fun removeMark() {
         blockEntity.persistentData.remove(INFECTED_BLOCK_FLAG)
-    }
-
-    override fun getLevel(): Level? {
-        return blockEntity.level
     }
 
     override fun isUsableByPlayer(player: Player): Boolean {
@@ -46,8 +46,8 @@ class WormComputerHolder(
             computerID = id,
             label = label,
             family = getFamily(),
-            terminalWidth = 1,
-            terminalHeight = 1,
+            terminalWidth = CCBConfig.bugComputerTermWidth,
+            terminalHeight = CCBConfig.bugComputerTermHeight,
             blockEntity = blockEntity,
             bugItem = getBug()
         )

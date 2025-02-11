@@ -4,11 +4,13 @@ import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block
 import com.simibubi.create.content.kinetics.RotationPropagator
 import com.simibubi.create.content.kinetics.motor.CreativeMotorBlockEntity
 import dan200.computercraft.api.lua.LuaFunction
+import net.minecraft.world.level.block.entity.BlockEntity
 import kotlin.math.abs
 
 
-class CreativeMotorAPI(override val blockEntity: CreativeMotorBlockEntity) : AbstractBlockAPI() {
+class CreativeMotorAPI(override val abstractBlockEntity: BlockEntity) : AbstractBlockAPI() {
     override val specificName = "Motor"
+    val blockEntity = abstractBlockEntity as CreativeMotorBlockEntity
 
     companion object {
         fun getSupportedClass(): Class<CreativeMotorBlockEntity> {

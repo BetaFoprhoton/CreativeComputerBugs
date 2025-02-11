@@ -1,6 +1,7 @@
 package com.betafoprhoton.creativecomputerbugs.registy;
 
 import com.betafoprhoton.creativecomputerbugs.foundation.item.DebugStick;
+import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.ParasiteItem;
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.WormItem;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.tterrag.registrate.util.entry.ItemEntry;
@@ -16,6 +17,10 @@ public class CCBItems {
 
     public static final ItemEntry<WormItem> BUG_WORM = REGISTRATE
             .item("bug_worm", WormItem::new)
+            .register();
+
+    public static final ItemEntry<ParasiteItem> BUG_PARASITE = REGISTRATE
+            .item("bug_parasite", ParasiteItem::new)
             .register();
 
     public static final ItemEntry<DebugStick> DEBUG_STICK = REGISTRATE

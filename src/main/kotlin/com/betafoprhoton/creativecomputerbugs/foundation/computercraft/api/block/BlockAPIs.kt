@@ -16,7 +16,7 @@ enum class BlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<out
     companion object {
         private val BLOCK_API_REGISTRY = getTypes()
 
-        fun getTypes(): HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>> {
+        private fun getTypes(): HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>> {
             val values = HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>>()
             entries.forEach { values[it.blockEntity] = it.api }
             return values

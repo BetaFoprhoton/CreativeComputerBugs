@@ -6,9 +6,11 @@ import com.simibubi.create.content.redstone.link.RedstoneLinkBlockEntity
 import dan200.computercraft.api.lua.LuaFunction
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.block.entity.BlockEntity
 
-class RedstoneLinkAPI(override val blockEntity: RedstoneLinkBlockEntity): AbstractBlockAPI() {
+class RedstoneLinkAPI(override val abstractBlockEntity: BlockEntity): AbstractBlockAPI() {
     override val specificName: String = "Link"
+    val blockEntity = abstractBlockEntity as RedstoneLinkBlockEntity
 
     /**
      * @param itemName name of the item

@@ -17,13 +17,7 @@ import org.jetbrains.annotations.NotNull
 class WormItem(properties: Properties) : AbstractBugItem(properties) {
     override fun useOn(context: UseOnContext): InteractionResult {
         val blockEntity = context.level.getBlockEntity(context.clickedPos) ?: return super.useOn(context)
-        println("Clicked on ${blockEntity.blockState.block} at ${context.clickedPos}")
-        println("isAPISupported: ${blockEntity.isAPISupported()}")
-        createWormComputerHolder(blockEntity, context.itemInHand, family)
-            ?: run {
-                println("Cannot create holder")
-                super.useOn(context)
-            }
+        createWormComputerHolder(blockEntity, context.itemInHand, family) ?: return super.useOn(context)
         context.itemInHand.shrink(1)
         return InteractionResult.SUCCESS;
     }

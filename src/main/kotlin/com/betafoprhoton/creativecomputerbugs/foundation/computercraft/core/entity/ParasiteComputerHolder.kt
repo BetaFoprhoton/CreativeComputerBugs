@@ -3,6 +3,7 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.ent
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.entity.EntityAPIs
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
+import com.betafoprhoton.creativecomputerbugs.registy.CCBConfig
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
 import net.minecraft.core.particles.ParticleTypes
@@ -18,12 +19,16 @@ class ParasiteComputerHolder(
     bugItem: ItemStack,
     id: Int,
     private val entity: Entity
-    ): AbstractBugComputerHolder(family, bugItem, id) {
+    ): AbstractBugComputerHolder(family, bugItem, id, entity.level()) {
 
     override fun tick() {
         super.tick()
         val level = entity.level()
         level.addParticle(ParticleTypes.SOUL, entity.x, entity.y, entity.z, level.random.nextDouble(), level.random.nextDouble(), level.random.nextDouble())
+    }
+
+    init {
+        putMark()
     }
 
     override fun putMark() {
@@ -32,10 +37,6 @@ class ParasiteComputerHolder(
 
     override fun removeMark() {
         entity.persistentData.remove(INFECTED_BLOCK_FLAG)
-    }
-
-    override fun getLevel(): Level {
-        return entity.level()
     }
 
     override fun isUsableByPlayer(player: Player): Boolean {
@@ -53,8 +54,8 @@ class ParasiteComputerHolder(
             computerID = id,
             label = label,
             family = getFamily(),
-            terminalWidth = 1,
-            terminalHeight = 1,
+            terminalWidth = CCBConfig.bugComputerTermWidth,
+            terminalHeight = CCBConfig.bugComputerTermHeight,
             bugItem = getBug(),
             entity = entity
         )
