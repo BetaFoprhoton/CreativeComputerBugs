@@ -1,11 +1,10 @@
-package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block;
+package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.create.*;
+import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.create.CreativeMotorAPI
+import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.create.MechanicalArmAPI
+import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.create.SpeedControllerAPI
 import dan200.computercraft.shared.computer.core.ServerComputer
-import net.minecraft.world.level.block.entity.BlockEntity;
-
-import java.util.HashMap;
+import net.minecraft.world.level.block.entity.BlockEntity
 
 enum class BlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<out AbstractBlockAPI>) {
     CREATIVE_MOTOR(CreativeMotorAPI.getSupportedClass(), CreativeMotorAPI::class.java),
@@ -15,6 +14,8 @@ enum class BlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<out
     ;
 
     companion object {
+        private val BLOCK_API_REGISTRY = getTypes()
+
         fun getTypes(): HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>> {
             val values = HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>>()
             entries.forEach { values[it.blockEntity] = it.api }
@@ -22,9 +23,14 @@ enum class BlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<out
         }
 
         fun addAPI(computer: ServerComputer, blockEntity: BlockEntity): Boolean {
-            val apiClass = CCBMain.BLOCK_API_REGISTRY[blockEntity.javaClass] ?: return false
+            val apiClass = BLOCK_API_REGISTRY[blockEntity.javaClass] ?: return false
             val api = apiClass.getDeclaredConstructor(BlockEntity::class.java).newInstance(blockEntity) ?: return false
             computer.addAPI(api)
+            return true
+        }
+
+        fun isAPISupported(blockEntity: BlockEntity): Boolean {
+            BLOCK_API_REGISTRY[blockEntity.javaClass] ?: return false
             return true
         }
     }

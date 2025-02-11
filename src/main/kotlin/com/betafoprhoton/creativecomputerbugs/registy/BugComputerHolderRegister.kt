@@ -1,23 +1,65 @@
 package com.betafoprhoton.creativecomputerbugs.registy
 
+import com.betafoprhoton.creativecomputerbugs.CCBMain
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.block.WormComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
-import com.betafoprhoton.creativecomputerbugs.foundation.helpers.extensions.getBugComputerHolder
-import dan200.computercraft.api.pocket.IPocketUpgrade
-import dan200.computercraft.api.upgrades.UpgradeData
+import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntity
 
-class BugComputerHolderRegister(private var idCounter: Int) {
+class BugComputerHolderRegister(private var idCounter: Int = 0) {
     private val wormRegistry = HashMap<Int , WormComputerHolder>()
     private val parasiteRegistry = HashMap<Int , ParasiteComputerHolder>()
 
-    fun getWormComputerHolder(id: Int): WormComputerHolder? {
+    companion object {
+        private val INSTANCE = BugComputerHolderRegister()
+        /***
+         * Creates a new worm computer holder for a block entity, returns null if there is already a holder or the block entity is not infectable.
+         * @return WormComputerHolder
+         */
+        fun createWormComputerHolder(infectBlockEntity: BlockEntity, bugItem: ItemStack, family: ComputerFamily): WormComputerHolder? =
+            INSTANCE.createWormComputerHolder(infectBlockEntity, bugItem, family)
+
+        /***
+         * Creates a new parasite computer holder for an entity, returns null if there is already a holder or the entity is not infectable.
+         * @return ParasiteComputerHolder
+         */
+        fun createParasiteComputerHolder(entity: Entity, bugItem: ItemStack, family: ComputerFamily): ParasiteComputerHolder? =
+            INSTANCE.createParasiteComputerHolder(entity, bugItem, family)
+
+        /***
+         * Returns the worm computer holder of a block entity, returns null if there is no holder.
+         * @return WormComputerHolder?
+         */
+        fun BlockEntity.getBugComputerHolder(): WormComputerHolder? {
+            if (this.persistentData.contains(INFECTED_BLOCK_FLAG))
+                return INSTANCE.getWormComputerHolder(this.persistentData.getInt(INFECTED_BLOCK_FLAG))
+            return null
+        }
+
+        /***
+         * Returns the parasite computer holder of a block entity, returns null if there is no holder.
+         * @return ParasiteComputerHolder?
+         */
+        fun Entity.getBugComputerHolder(): ParasiteComputerHolder? {
+            if (this.persistentData.contains(INFECTED_BLOCK_FLAG))
+                return INSTANCE.getParasiteComputerHolder(this.persistentData.getInt(INFECTED_BLOCK_FLAG))
+            return null
+        }
+
+        fun tick() = INSTANCE.tick()
+
+        fun remove(id: Int) = INSTANCE.remove(id)
+
+    }
+
+    private fun getWormComputerHolder(id: Int): WormComputerHolder? {
         return wormRegistry[id]
     }
 
-    fun getParasiteComputerHolder(id: Int): ParasiteComputerHolder? {
+    private fun getParasiteComputerHolder(id: Int): ParasiteComputerHolder? {
         return parasiteRegistry[id]
     }
     
@@ -26,13 +68,12 @@ class BugComputerHolderRegister(private var idCounter: Int) {
         parasiteRegistry.forEach { it.value.tick() }
     }
 
-    fun createWormComputerHolder(infectBlockEntity: BlockEntity, upgrade: UpgradeData<IPocketUpgrade>?, family: ComputerFamily): WormComputerHolder? {
+    private fun createWormComputerHolder(infectBlockEntity: BlockEntity, bugItem: ItemStack, family: ComputerFamily): WormComputerHolder? {
         val holderOld = infectBlockEntity.getBugComputerHolder()
         if (holderOld != null) return null
         val holder = WormComputerHolder(
             family = family,
-            bugItem = CCBItems.BUG_WORM.asStack(),
-            upgrade = upgrade,
+            bugItem = bugItem,
             id = idCounter,
             blockEntity = infectBlockEntity
         )
@@ -41,13 +82,12 @@ class BugComputerHolderRegister(private var idCounter: Int) {
         return holder
     }
 
-    fun createParasiteComputerHolder(entity: Entity, upgrade: UpgradeData<IPocketUpgrade>?, family: ComputerFamily): ParasiteComputerHolder? {
+    private fun createParasiteComputerHolder(entity: Entity, bugItem: ItemStack, family: ComputerFamily): ParasiteComputerHolder? {
         val holderOld = entity.getBugComputerHolder()
         if (holderOld != null) return null
         val holder = ParasiteComputerHolder(
             family = family,
-            bugItem = CCBItems.BUG_WORM.asStack(),
-            upgrade = upgrade,
+            bugItem = bugItem,
             id = idCounter,
             entity = entity
         )

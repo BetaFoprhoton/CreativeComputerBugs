@@ -1,6 +1,6 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.item.bugs;
 
-import com.betafoprhoton.creativecomputerbugs.foundation.helpers.extensions.ItemStackExtensions.getUpgrade
+import com.betafoprhoton.creativecomputerbugs.foundation.util.getUpgrade
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity

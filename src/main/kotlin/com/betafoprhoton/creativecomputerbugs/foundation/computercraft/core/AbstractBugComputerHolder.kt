@@ -1,6 +1,7 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core
 
-import com.betafoprhoton.creativecomputerbugs.foundation.helpers.extensions.ItemStackExtensions.getUpgrade
+import com.betafoprhoton.creativecomputerbugs.foundation.util.getUpgrade
+import com.betafoprhoton.creativecomputerbugs.foundation.util.getUpgradeWithData
 import com.google.common.base.Strings
 import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.api.pocket.IPocketAccess
@@ -28,7 +29,6 @@ import java.util.*
 abstract class AbstractBugComputerHolder(
     private val family: ComputerFamily,
     private val bugItem: ItemStack,
-    private var upgrade: UpgradeData<IPocketUpgrade>?,
     val id: Int
 ) : IBugComputerHolder, Nameable, MenuProvider {
     private var instanceID = -1
@@ -38,6 +38,7 @@ abstract class AbstractBugComputerHolder(
     private var startOn = false
     private var fresh = false
     private val level: Level? = this.getLevel()
+    private var upgrade = bugItem.getUpgradeWithData()
 
     init {
         this.putMark()
@@ -157,7 +158,7 @@ abstract class AbstractBugComputerHolder(
 
     override fun getName(): Component {
         label ?: return Component.empty()
-        return Component.literal(label)
+        return Component.literal(label ?: "")
 
     }
 
@@ -167,7 +168,7 @@ abstract class AbstractBugComputerHolder(
 
 
     override fun getCustomName(): Component? {
-        return if (hasCustomName()) Component.literal(label) else null
+        return if (hasCustomName()) Component.literal(label ?: "") else null
     }
 
 

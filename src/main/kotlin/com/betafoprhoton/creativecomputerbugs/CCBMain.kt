@@ -24,7 +24,6 @@ class CCBMain {
         @JvmField
         val REGISTRATE: CreateRegistrate = CreateRegistrate.create(MODID)
         @JvmField
-        val BUG_COMPUTER_HOLDER_REGISTER = BugComputerHolderRegister(0)
         val LOGGER = LogUtils.getLogger()
         const val INFECTED_BLOCK_FLAG = "InfectedComputerID"
         val BLOCK_API_REGISTRY: HashMap<Class<out BlockEntity>, Class<out AbstractBlockAPI>> = BlockAPIs.getTypes()

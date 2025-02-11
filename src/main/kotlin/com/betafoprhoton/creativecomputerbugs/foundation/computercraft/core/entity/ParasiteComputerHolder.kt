@@ -3,8 +3,6 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.ent
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.entity.EntityAPIs
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
-import dan200.computercraft.api.pocket.IPocketUpgrade
-import dan200.computercraft.api.upgrades.UpgradeData
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
 import net.minecraft.core.particles.ParticleTypes
@@ -18,10 +16,9 @@ import net.minecraft.world.level.block.Block
 class ParasiteComputerHolder(
     family: ComputerFamily,
     bugItem: ItemStack,
-    upgrade: UpgradeData<IPocketUpgrade>?,
     id: Int,
     private val entity: Entity
-    ): AbstractBugComputerHolder(family, bugItem, upgrade, id) {
+    ): AbstractBugComputerHolder(family, bugItem, id) {
 
     override fun tick() {
         super.tick()

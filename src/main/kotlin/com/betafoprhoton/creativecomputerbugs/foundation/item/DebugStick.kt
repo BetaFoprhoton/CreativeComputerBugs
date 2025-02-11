@@ -1,8 +1,9 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.item
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain
-import com.betafoprhoton.creativecomputerbugs.foundation.helpers.extensions.getBugComputerHolder
-import com.betafoprhoton.creativecomputerbugs.foundation.helpers.extensions.isAPISupported
+import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
+import com.betafoprhoton.creativecomputerbugs.foundation.util.isAPISupported
+import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister
+import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister.Companion.getBugComputerHolder
 import com.simibubi.create.foundation.utility.RaycastHelper
 import dan200.computercraft.shared.network.container.ComputerContainerData
 import dan200.computercraft.shared.util.BlockEntityHelpers
@@ -53,21 +54,21 @@ class DebugStick(properties: Properties): Item(properties) {
             computer.turnOn()
             ComputerContainerData(computer, holder.getBug()).open(context.player, holder)
         } else {
-            CCBMain.BUG_COMPUTER_HOLDER_REGISTER.remove(holder.id)
+            BugComputerHolderRegister.remove(holder.id)
         }
         return InteractionResult.SUCCESS
     }
 
     override fun interactLivingEntity(itemStack: ItemStack, player: Player, entity: LivingEntity, hand: InteractionHand): InteractionResult {
         if (player !is ServerPlayer) return InteractionResult.PASS
-        val holder = entity.getBugComputerHolder() ?: return InteractionResult.PASS
+        val holder: ParasiteComputerHolder = entity.getBugComputerHolder() ?: return InteractionResult.PASS
         if (holder.isUsableByPlayer(player)) return InteractionResult.PASS
         if (player.isShiftKeyDown) {
             val computer = holder.createServerComputer()
             computer.turnOn()
             ComputerContainerData(computer, holder.getBug()).open(player, holder)
         } else {
-            CCBMain.BUG_COMPUTER_HOLDER_REGISTER.remove(holder.id)
+            BugComputerHolderRegister.remove(holder.id)
         }
         return InteractionResult.SUCCESS
     }

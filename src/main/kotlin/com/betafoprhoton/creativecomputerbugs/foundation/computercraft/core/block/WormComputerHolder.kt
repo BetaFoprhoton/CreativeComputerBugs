@@ -3,8 +3,6 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.blo
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPIs
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
-import dan200.computercraft.api.pocket.IPocketUpgrade
-import dan200.computercraft.api.upgrades.UpgradeData
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
 import net.minecraft.server.level.ServerLevel
@@ -15,11 +13,12 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 
 class WormComputerHolder(
-    family: ComputerFamily, bugItem: ItemStack, upgrade: UpgradeData<IPocketUpgrade>?,
-    id: Int, private val blockEntity: BlockEntity
-) : AbstractBugComputerHolder(family,
-    bugItem, upgrade, id
-) {
+    family: ComputerFamily,
+    bugItem: ItemStack,
+    id: Int,
+    private val blockEntity: BlockEntity
+) : AbstractBugComputerHolder(family, bugItem, id) {
+
     override fun putMark() {
         blockEntity.persistentData.putInt(INFECTED_BLOCK_FLAG, id)
     }
