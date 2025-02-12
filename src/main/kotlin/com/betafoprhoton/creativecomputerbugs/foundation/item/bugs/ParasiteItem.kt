@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack
 
 class ParasiteItem(properties: Properties): AbstractBugItem(properties) {
     override fun interactLivingEntity(itemStack: ItemStack, player: Player, livingEntity: LivingEntity, hand: InteractionHand): InteractionResult {
-        val holder = createParasiteComputerHolder(livingEntity, itemStack, family) ?: return InteractionResult.PASS
+        createParasiteComputerHolder(livingEntity, itemStack, family) ?: return super.interactLivingEntity(itemStack, player, livingEntity, hand)
         itemStack.shrink(1)
         return InteractionResult.SUCCESS
     }

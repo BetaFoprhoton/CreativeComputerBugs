@@ -6,11 +6,13 @@ import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugIt
 import com.betafoprhoton.creativecomputerbugs.registy.CCBConfig
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
+import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
+import kotlin.random.Random
 
 class WormComputerHolder(
     family: ComputerFamily,
@@ -37,6 +39,21 @@ class WormComputerHolder(
 
     override fun addAPIForComputer(computer: ServerComputer) {
         BlockAPIs.addAPI(computer, blockEntity)
+    }
+
+    override fun tick() {
+        super.tick()
+        val level = blockEntity.level ?: return
+        if ((1..10).random() <= 9) return
+        val blockPos = blockEntity.blockPos
+        level.addParticle(ParticleTypes.SOUL,
+            blockPos.x.toDouble() + 0.5f,
+            blockPos.y.toDouble() + 0.5f,
+            blockPos.z.toDouble() + 0.5f,
+            (Random.nextDouble() * 2 - 1) * 0.15,
+            (Random.nextDouble() * 2 - 1) * 0.08,
+            (Random.nextDouble() * 2 - 1) * 0.15
+        )
     }
 
     override fun createComputer(id: Int, level: ServerLevel): ServerComputer {

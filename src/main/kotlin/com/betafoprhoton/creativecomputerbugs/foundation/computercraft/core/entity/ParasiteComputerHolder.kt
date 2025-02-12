@@ -13,18 +13,27 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
+import kotlin.random.Random
 
 class ParasiteComputerHolder(
     family: ComputerFamily,
     bugItem: ItemStack,
     id: Int,
-    private val entity: Entity
+    val entity: Entity
     ): AbstractBugComputerHolder(family, bugItem, id, entity.level()) {
 
     override fun tick() {
         super.tick()
         val level = entity.level()
-        level.addParticle(ParticleTypes.SOUL, entity.x, entity.y, entity.z, level.random.nextDouble(), level.random.nextDouble(), level.random.nextDouble())
+        if ((1..10).random() <= 9) return
+        level.addParticle(ParticleTypes.SOUL,
+            entity.x,
+            entity.eyeY,
+            entity.z,
+            (Random.nextDouble() * 2 - 1) * 0.2,
+            (Random.nextDouble() * 2 - 1) * 0.3,
+            (Random.nextDouble() * 2 - 1) * 0.2
+        )
     }
 
     init {

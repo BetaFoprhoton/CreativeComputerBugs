@@ -1,5 +1,5 @@
 {
-  "parent": "creativecomputerbugs:item/bottle",
+  "parent": "creativecomputerbugs:item/debug_stick",
   "textures": {
     "layer0": "creativecomputerbugs:item/debug_stick_0"
   }

@@ -1,6 +1,7 @@
 package com.betafoprhoton.creativecomputerbugs.registy
 
 import com.betafoprhoton.creativecomputerbugs.CCBMain
+import com.betafoprhoton.creativecomputerbugs.CCBMain.Companion.LOGGER
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.block.WormComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
@@ -15,6 +16,7 @@ class BugComputerHolderRegister(private var idCounter: Int = 0) {
 
     companion object {
         private val INSTANCE = BugComputerHolderRegister()
+
         /***
          * Creates a new worm computer holder for a block entity, returns null if there is already a holder or the block entity is not infectable.
          * @return WormComputerHolder
@@ -79,6 +81,7 @@ class BugComputerHolderRegister(private var idCounter: Int = 0) {
         )
         wormRegistry[holder.id] = holder
         idCounter ++
+        LOGGER.debug("A block bug computer has registered at pos: {}. Holder ID: {}.", infectBlockEntity.blockPos, holder.id)
         return holder
     }
 
@@ -93,6 +96,7 @@ class BugComputerHolderRegister(private var idCounter: Int = 0) {
         )
         parasiteRegistry[holder.id] = holder
         idCounter ++
+        LOGGER.debug("A entity bug computer has registered at entity: {}. Holder ID: {}.", entity.uuid, holder.id)
         return holder
     }
 
@@ -102,12 +106,14 @@ class BugComputerHolderRegister(private var idCounter: Int = 0) {
             holder1.unload()
             wormRegistry.remove(id)
             holder1.popResource()
+            LOGGER.debug("A block bug computer has been removed. Holder ID: {}.", holder1.id)
         }
         val holder2 = parasiteRegistry[id]
         if (holder2 != null) {
             holder2.unload()
             parasiteRegistry.remove(id)
             holder2.popResource()
+            LOGGER.debug("A entity bug computer has been removed. Holder ID: {}.", holder2.id)
         }
     }
 }

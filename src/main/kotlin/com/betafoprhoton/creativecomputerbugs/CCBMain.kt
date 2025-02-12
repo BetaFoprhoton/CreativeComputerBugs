@@ -1,21 +1,17 @@
 package com.betafoprhoton.creativecomputerbugs
 
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.AbstractBlockAPI
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPIs
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.entity.AbstractEntityAPI
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.entity.EntityAPIs
-import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister
 import com.betafoprhoton.creativecomputerbugs.registy.CCBCreativeModeTab
 import com.betafoprhoton.creativecomputerbugs.registy.CCBItems
 import com.mojang.logging.LogUtils
 import com.simibubi.create.foundation.data.CreateRegistrate
-import net.minecraft.world.entity.Entity
-import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.client.renderer.item.ItemProperties
+import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 
-import java.util.HashMap
 
 @Mod(CCBMain.MODID)
 class CCBMain {
@@ -36,6 +32,17 @@ class CCBMain {
         CCBCreativeModeTab.register(modEventBus)
         CCBItems.register()
 
+        MinecraftForge.EVENT_BUS.register(::clientSetup)
         MinecraftForge.EVENT_BUS.register(this)
+    }
+
+    @SubscribeEvent
+    fun clientSetup(event: FMLClientSetupEvent) {
+        val item = CCBItems.DEBUG_STICK.get()
+        val key = ResourceLocation(MODID, "isActive")
+        ItemProperties.register(item, key) { itemStack, _, _, _ ->
+            val tag = itemStack.orCreateTag // lol kotlin's abbreviation
+            if (tag.getBoolean("isActive")) 1.0f else 0.0f
+        }
     }
 }

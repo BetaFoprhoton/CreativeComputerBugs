@@ -20,18 +20,6 @@ public class CCBItems {
 
     public static final ItemEntry<WormItem> BUG_WORM = REGISTRATE
             .item("bug_worm", WormItem::new)
-            .model((ctx, provider) -> {
-                provider.generated(ctx)
-                        .override()
-                            .predicate(new ResourceLocation(MODID, "isActive"), 0.0f)
-                            .model(provider.withExistingParent(ctx.getName() + "_0", "item/generated"))
-                            .end()
-                        .override()
-                            .predicate(new ResourceLocation(MODID, "isActive"), 1.0f)
-                            .model(provider.withExistingParent(ctx.getName() + "_1", "item/generated"))
-                            .end();
-
-            })
             .register();
 
     public static final ItemEntry<ParasiteItem> BUG_PARASITE = REGISTRATE
@@ -41,6 +29,18 @@ public class CCBItems {
     public static final ItemEntry<DebugStick> DEBUG_STICK = REGISTRATE
             .item("debug_stick", DebugStick::new)
             .properties(p -> p.stacksTo(1))
+            .model((ctx, provider) -> {
+                provider.generated(ctx)
+                        .override()
+                        .predicate(new ResourceLocation(MODID, "isActive"), 0.0f)
+                        .model(provider.withExistingParent(ctx.getName() + "_0", "item/generated"))
+                        .end()
+                        .override()
+                        .predicate(new ResourceLocation(MODID, "isActive"), 1.0f)
+                        .model(provider.withExistingParent(ctx.getName() + "_1", "item/generated"))
+                        .end();
+
+            })
             .register();
 
     public static void register() {}

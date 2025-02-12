@@ -63,9 +63,9 @@ class DebugStick(properties: Properties): Item(properties) {
     }
 
     override fun interactLivingEntity(itemStack: ItemStack, player: Player, entity: LivingEntity, hand: InteractionHand): InteractionResult {
-        if (player !is ServerPlayer) return InteractionResult.PASS
-        val holder: ParasiteComputerHolder = entity.getBugComputerHolder() ?: return InteractionResult.PASS
-        if (holder.isUsableByPlayer(player)) return InteractionResult.PASS
+        if (player !is ServerPlayer) return super.interactLivingEntity(itemStack, player, player, hand)
+        val holder = entity.getBugComputerHolder() ?: return super.interactLivingEntity(itemStack, player, player, hand)
+        if (!holder.isUsableByPlayer(player)) return super.interactLivingEntity(itemStack, player, player, hand)
         if (player.isShiftKeyDown) {
             val computer = holder.createServerComputer()
             computer.turnOn()

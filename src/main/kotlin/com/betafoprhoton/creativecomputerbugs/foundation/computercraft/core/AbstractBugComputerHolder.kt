@@ -56,7 +56,6 @@ abstract class AbstractBugComputerHolder(
         return BlockEntityHelpers.DEFAULT_INTERACT_RANGE
     }
 
-    @Override
     override fun tick() {
         if (level?.isClientSide == true) return
         if (computerID < 0 && !startOn) return // Don't tick if we don't need a computer!

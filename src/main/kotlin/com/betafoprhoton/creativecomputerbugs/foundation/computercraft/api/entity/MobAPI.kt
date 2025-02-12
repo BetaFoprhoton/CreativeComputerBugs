@@ -38,7 +38,6 @@ class MobAPI(override val abstractEntity: Entity) : AbstractEntityAPI() {
      */
     @LuaFunction("moveTo")
     fun moveTo(x: Double, y: Double, z: Double) {
-        entity.moveTo(x, y, z)
+        //TODO: seem have to use goal finder
     }
-    
 }

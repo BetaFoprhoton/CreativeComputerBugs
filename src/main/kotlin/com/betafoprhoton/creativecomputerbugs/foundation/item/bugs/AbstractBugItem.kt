@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
 abstract class AbstractBugItem(properties: Properties) : Item(properties) {
-    var family: ComputerFamily = ComputerFamily.NORMAL
+    var family: ComputerFamily = ComputerFamily.COMMAND
     constructor(properties: Properties, family: ComputerFamily) : this(properties) {
         this.family = family
     }
