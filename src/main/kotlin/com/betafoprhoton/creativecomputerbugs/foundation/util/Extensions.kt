@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntity
+import kotlin.reflect.KClass
 
 //BlockEntity
 fun BlockEntity.isAPISupported(): Boolean =
@@ -48,4 +49,14 @@ fun ItemStack.setUpgrade(upgrade: UpgradeData<IPocketUpgrade>?) {
 
 fun ItemStack.getUpgradeInfo(): CompoundTag {
     return this.getOrCreateTagElement(NBT_UPGRADE_INFO);
+}
+
+//KClass
+val KClass<*>.superclasses: List<KClass<*>>
+    get() = this.supertypes.map { it.classifier as KClass<*> }
+
+// 递归检查是否间接继承
+fun KClass<*>.isIndirectSuperclassOf(child: KClass<*>): Boolean {
+    if (child.superclasses.any { it == this }) return true
+    return child.superclasses.any { this.isIndirectSuperclassOf(it) }
 }

@@ -24,8 +24,8 @@ enum class BlockAPIs(val blockEntity: Class<out BlockEntity>, val api: Class<out
 
         fun addAPI(computer: ServerComputer, blockEntity: BlockEntity): Boolean {
             val apiClass = BLOCK_API_REGISTRY[blockEntity.javaClass] ?: return false
-            val api = apiClass.getDeclaredConstructor(BlockEntity::class.java).newInstance(blockEntity) ?: return false
-            computer.addAPI(api)
+            val apiInstance = apiClass.getDeclaredConstructor(BlockEntity::class.java).newInstance(blockEntity) ?: return false
+            computer.addAPI(apiInstance)
             return true
         }
 

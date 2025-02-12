@@ -19,13 +19,11 @@ enum class EntityAPIs(val entity: Class<out Entity>, val api: Class<out Abstract
 
         fun <T> addAPI(computer: ServerComputer, entity: T): Boolean {
             var flag = false
-            ENTITY_API_REGISTRY.forEach { (entityClass, apiClass) ->
-                entity!!::class.java.classes.forEach {
-                      if (it == entityClass) {
-                          val api = apiClass.getDeclaredConstructor(Entity::class.java).newInstance(entity) ?: return false
-                          computer.addAPI(api)
-                          flag = true
-                      }
+            val entityClass = entity!!::class.java
+            ENTITY_API_REGISTRY.forEach { (apiEntityClass, apiClass) ->
+                if (apiEntityClass.isAssignableFrom(entityClass)) {
+                    val apiInstance = apiClass.getDeclaredConstructor(Entity::class.java).newInstance(entity)
+                    computer.addAPI(apiInstance)
                 }
             }
             return flag

@@ -20,7 +20,7 @@ import java.util.HashMap
 @Mod(CCBMain.MODID)
 class CCBMain {
     companion object {
-        const val MODID = "creativecomputerbugs"
+        internal const val MODID = "creativecomputerbugs"
         @JvmField
         val REGISTRATE: CreateRegistrate = CreateRegistrate.create(MODID)
         @JvmField

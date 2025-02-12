@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "creativecomputerbugs:item/bottle",
   "textures": {
     "layer0": "creativecomputerbugs:item/debug_stick_1"
   }

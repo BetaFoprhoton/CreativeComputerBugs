@@ -1,5 +1,6 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.item
 
+import com.betafoprhoton.creativecomputerbugs.CCBMain.Companion.MODID
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.util.isAPISupported
 import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister
@@ -7,6 +8,7 @@ import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister.
 import com.simibubi.create.foundation.utility.RaycastHelper
 import dan200.computercraft.shared.network.container.ComputerContainerData
 import dan200.computercraft.shared.util.BlockEntityHelpers
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -17,6 +19,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level
+import net.minecraftforge.server.command.ModIdArgument
 
 class DebugStick(properties: Properties): Item(properties) {
     private var isActive = false

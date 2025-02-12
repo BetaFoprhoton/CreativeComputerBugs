@@ -1,10 +1,10 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "creativecomputerbugs:item/debug_stick_0"
+    "layer0": "creativecomputerbugs:item/debug_stick"
   },
   "overrides": [
-    { "predicate": { "isActive": false }, "model": "creativecomputerbugs:item/debug_stick_0" },
-    { "predicate": { "isActive": true }, "model": "creativecomputerbugs:item/debug_stick_1" }
+    { "predicate": { "isActive": 0.0 }, "model": "creativecomputerbugs:item/debug_stick_0" },
+    { "predicate": { "isActive": 1.0 }, "model": "creativecomputerbugs:item/debug_stick_1" }
   ]
 }
