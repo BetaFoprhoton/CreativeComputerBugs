@@ -34,6 +34,7 @@ class ParasiteComputerHolder(
             (Random.nextDouble() * 2 - 1) * 0.3,
             (Random.nextDouble() * 2 - 1) * 0.2
         )
+        println("particle spawned!")
     }
 
     init {

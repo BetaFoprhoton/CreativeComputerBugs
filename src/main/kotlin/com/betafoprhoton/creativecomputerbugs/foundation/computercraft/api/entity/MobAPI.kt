@@ -3,8 +3,11 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.enti
 import dan200.computercraft.api.lua.LuaFunction
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.*
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.Goal
 import net.minecraft.world.item.ItemStack
+import java.util.UUID
 
 class MobAPI(override val abstractEntity: Entity) : AbstractEntityAPI() {
     override val specificName: String = "Mob"
@@ -38,6 +41,22 @@ class MobAPI(override val abstractEntity: Entity) : AbstractEntityAPI() {
      */
     @LuaFunction("moveTo")
     fun moveTo(x: Double, y: Double, z: Double) {
-        //TODO: seem have to use goal finder
+        entity.moveControl.setWantedPosition(x, y, z, entity.getAttributeValue(Attributes.MOVEMENT_SPEED))
+    }
+
+    /**
+     * Force the mob look at the specified position.
+     */
+    @LuaFunction("lookAtPos")
+    fun lockAtPos(x: Double, y: Double, z: Double) {
+        entity.lookControl.setLookAt(x, y, z)
+    }
+
+    /**
+     * Force the mob attack the specified entity.
+     */
+    @LuaFunction("attack")
+    fun attack(uuid: String) {
+        //idk how to get entity by its uuid.
     }
 }

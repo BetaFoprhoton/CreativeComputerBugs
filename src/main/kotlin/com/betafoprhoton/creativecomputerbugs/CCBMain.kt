@@ -32,17 +32,6 @@ class CCBMain {
         CCBCreativeModeTab.register(modEventBus)
         CCBItems.register()
 
-        MinecraftForge.EVENT_BUS.register(::clientSetup)
         MinecraftForge.EVENT_BUS.register(this)
-    }
-
-    @SubscribeEvent
-    fun clientSetup(event: FMLClientSetupEvent) {
-        val item = CCBItems.DEBUG_STICK.get()
-        val key = ResourceLocation(MODID, "isActive")
-        ItemProperties.register(item, key) { itemStack, _, _, _ ->
-            val tag = itemStack.orCreateTag // lol kotlin's abbreviation
-            if (tag.getBoolean("isActive")) 1.0f else 0.0f
-        }
     }
 }

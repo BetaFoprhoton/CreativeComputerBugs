@@ -1,14 +1,11 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.item
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain.Companion.MODID
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.util.isAPISupported
 import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister
 import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister.Companion.getBugComputerHolder
 import com.simibubi.create.foundation.utility.RaycastHelper
 import dan200.computercraft.shared.network.container.ComputerContainerData
 import dan200.computercraft.shared.util.BlockEntityHelpers
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -19,14 +16,13 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.context.UseOnContext
 import net.minecraft.world.level.Level
-import net.minecraftforge.server.command.ModIdArgument
 
 class DebugStick(properties: Properties): Item(properties) {
     private var isActive = false
-        set(value) = if(value) setActive() else setInActive()
+        set(value) = if(value) onActive() else onInActive()
 
 
-    override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, p_41407_: Int, p_41408_: Boolean) {
+    override fun inventoryTick(itemStack: ItemStack, level: Level, entity: Entity, seed: Int, b: Boolean) {
         if (entity !is Player) return
         val ray = RaycastHelper.rayTraceUntil(entity, BlockEntityHelpers.DEFAULT_INTERACT_RANGE) {
             !level.getBlockState(it).isAir
@@ -39,11 +35,11 @@ class DebugStick(properties: Properties): Item(properties) {
         itemStack.getOrCreateTag().putBoolean("isActive", isActive)
     }
 
-    fun setActive() {
+    fun onActive() {
 
     }
 
-    fun setInActive() {
+    fun onInActive() {
 
     }
 

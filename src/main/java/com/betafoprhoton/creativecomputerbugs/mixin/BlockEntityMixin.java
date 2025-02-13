@@ -1,6 +1,5 @@
 package com.betafoprhoton.creativecomputerbugs.mixin;
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain;
 import com.betafoprhoton.creativecomputerbugs.registy.BugComputerHolderRegister;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
