@@ -52,20 +52,16 @@ class MechanicalArmAPI(override val abstractBlockEntity: BlockEntity) : Abstract
      * @param x X of target
      * @param y y of target
      * @param z Z of target
-     * @param mode point mode "deposit" or "take"
+     * @param isTakeMode point mode "deposit" or "take"
      * @return add successfully or not
      */
     @LuaFunction("addTarget")
-    fun addTarget (x: Int, y: Int, z: Int, mode: String): Boolean {
+    fun addTarget (x: Int, y: Int, z: Int, isTakeMode: Boolean): Boolean {
         val pos = BlockPos(x, y, z)
         val level = blockEntity.level ?: return false
         var pData = blockEntity.getPersistentData()
         val point = ArmInteractionPoint.create(level, pos, level.getBlockState(pos)) ?: return false
-        when (mode) {
-            "take" -> point.cycleMode()
-            "deposit" -> point.mode
-            else -> return false
-        }
+        if (isTakeMode) point.cycleMode()
         pData.put("InteractionPoint", point.serialize(blockEntity.blockPos))
         blockEntity.tick()
         pData = blockEntity.getPersistentData()
