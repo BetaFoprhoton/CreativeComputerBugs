@@ -15,7 +15,8 @@ abstract class AbstractBugItem(properties: Properties) : Item(properties) {
     }
 
     companion object {
-        const val INFECTED_BLOCK_FLAG = "InfectedBugComputerID"
+        const val INFECTED_FLAG = "InfectedBugComputerID"
+        const val INFECTED_BUG_ITEM_FLAG = "InfectedBugItem"
         const val NBT_UPGRADE = "Upgrade"
         const val NBT_UPGRADE_INFO = "UpgradeInfo"
         const val NBT_IS_ACTIVE = "IsActive"

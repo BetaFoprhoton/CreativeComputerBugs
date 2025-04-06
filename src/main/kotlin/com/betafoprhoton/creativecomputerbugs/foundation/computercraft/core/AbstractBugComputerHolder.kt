@@ -40,15 +40,13 @@ abstract class AbstractBugComputerHolder(
 
     private var upgrade = bugItem.getUpgradeWithData()
 
-    abstract fun putMark()
-    abstract fun removeMark()
     abstract fun isUsableByPlayer(player: Player): Boolean
     abstract fun addAPIForComputer(computer: ServerComputer)
 
     override fun unload() {
         if (level?.isClientSide == true) return
         getServerComputer()?.close()
-        removeMark()
+        removeData()
         instanceID = -1
     }
 
@@ -61,6 +59,7 @@ abstract class AbstractBugComputerHolder(
         if (computerID < 0 && !startOn) return // Don't tick if we don't need a computer!
 
         val computer = createServerComputer()
+        a = 1.0F
 
         var upgrade1: IPocketUpgrade? = null
         if (upgrade != null) {

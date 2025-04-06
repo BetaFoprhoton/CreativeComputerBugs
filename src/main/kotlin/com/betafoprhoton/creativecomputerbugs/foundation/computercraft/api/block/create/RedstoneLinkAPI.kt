@@ -19,13 +19,27 @@ class RedstoneLinkAPI(override val abstractBlockEntity: BlockEntity): AbstractBl
      */
     @LuaFunction("setFrequency")
     fun setFrequency(itemName: String, isFirst: Boolean): Boolean {
-         val tag = CompoundTag()
+        val tag = CompoundTag()
         tag.putString("id", itemName)
         val itemStack = ItemStack.of(tag) ?: return false
         blockEntity.forEachBehaviour {
             if (it is LinkBehaviour)
-            it.setFrequency(isFirst, itemStack)
+                it.setFrequency(isFirst, itemStack)
         }
+        blockEntity.notifyUpdate()
         return true
+    }
+
+    /**
+     * @param isReceive is the link receiving or sending
+     */
+    @LuaFunction("setMode")
+    fun setMode(isReceive: Boolean) {
+        blockEntity.forEachBehaviour {
+            if (it is LinkBehaviour) {
+                it.blockEntity
+            }
+        }
+        //blockEntity.blockState.setValue(, isReceive)
     }
 }

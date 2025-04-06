@@ -2,7 +2,7 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.ent
 
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.entity.EntityAPIs
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
-import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
+import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_FLAG
 import com.betafoprhoton.creativecomputerbugs.registy.CCBConfig
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import kotlin.random.Random
 
@@ -38,15 +37,15 @@ class ParasiteComputerHolder(
     }
 
     init {
-        putMark()
+        saveData()
     }
 
-    override fun putMark() {
-        entity.persistentData.putInt(INFECTED_BLOCK_FLAG, id)
+    override fun saveData() {
+        entity.persistentData.putInt(INFECTED_FLAG, id)
     }
 
-    override fun removeMark() {
-        entity.persistentData.remove(INFECTED_BLOCK_FLAG)
+    override fun removeData() {
+        entity.persistentData.remove(INFECTED_FLAG)
     }
 
     override fun isUsableByPlayer(player: Player): Boolean {

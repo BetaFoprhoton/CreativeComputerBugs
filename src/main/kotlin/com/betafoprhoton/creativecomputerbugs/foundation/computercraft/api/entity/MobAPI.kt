@@ -109,7 +109,7 @@ class MobAPI(override val abstractEntity: Entity) : AbstractEntityAPI() {
                 entity.targetSelector.removeAllGoals { true }
             } else {
                 entity.goalSelector.removeAllGoals { true }
-            }
+            }   
         }
     }
 }

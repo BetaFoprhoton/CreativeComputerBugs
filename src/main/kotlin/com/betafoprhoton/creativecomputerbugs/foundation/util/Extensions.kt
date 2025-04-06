@@ -1,10 +1,6 @@
 package com.betafoprhoton.creativecomputerbugs.foundation.util
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPIs
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.block.WormComputerHolder
-import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
-import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.NBT_UPGRADE
 import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.NBT_UPGRADE_INFO
 import dan200.computercraft.api.pocket.IPocketUpgrade
@@ -12,7 +8,6 @@ import dan200.computercraft.api.upgrades.UpgradeData
 import dan200.computercraft.impl.PocketUpgrades
 import dan200.computercraft.shared.util.NBTUtil
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntity
 import kotlin.reflect.KClass

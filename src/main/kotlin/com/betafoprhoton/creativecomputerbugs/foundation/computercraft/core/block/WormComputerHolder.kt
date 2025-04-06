@@ -2,7 +2,8 @@ package com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.blo
 
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.api.block.BlockAPIs
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.AbstractBugComputerHolder
-import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
+import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BUG_ITEM_FLAG
+import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_FLAG
 import com.betafoprhoton.creativecomputerbugs.registy.CCBConfig
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import dan200.computercraft.shared.computer.core.ServerComputer
@@ -22,15 +23,17 @@ class WormComputerHolder(
 ) : AbstractBugComputerHolder(family, bugItem, id, blockEntity.level) {
 
     init {
-        putMark()
+        saveData()
     }
 
-    override fun putMark() {
-        blockEntity.persistentData.putInt(INFECTED_BLOCK_FLAG, id)
+    override fun saveData() {
+        blockEntity.persistentData.putInt(INFECTED_FLAG, id)
+        blockEntity.persistentData.putString(INFECTED_BUG_ITEM_FLAG, getBug().toString())
     }
 
-    override fun removeMark() {
-        blockEntity.persistentData.remove(INFECTED_BLOCK_FLAG)
+    override fun removeData() {
+        blockEntity.persistentData.remove(INFECTED_FLAG)
+        blockEntity.persistentData.remove(INFECTED_BUG_ITEM_FLAG)
     }
 
     override fun isUsableByPlayer(player: Player): Boolean {

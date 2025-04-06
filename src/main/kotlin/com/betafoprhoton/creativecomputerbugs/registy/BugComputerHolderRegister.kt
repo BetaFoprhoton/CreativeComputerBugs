@@ -1,10 +1,9 @@
 package com.betafoprhoton.creativecomputerbugs.registy
 
-import com.betafoprhoton.creativecomputerbugs.CCBMain
 import com.betafoprhoton.creativecomputerbugs.CCBMain.Companion.LOGGER
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.block.WormComputerHolder
 import com.betafoprhoton.creativecomputerbugs.foundation.computercraft.core.entity.ParasiteComputerHolder
-import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_BLOCK_FLAG
+import com.betafoprhoton.creativecomputerbugs.foundation.item.bugs.AbstractBugItem.Companion.INFECTED_FLAG
 import dan200.computercraft.shared.computer.core.ComputerFamily
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
@@ -36,8 +35,8 @@ class BugComputerHolderRegister(private var idCounter: Int = 0) {
          * @return WormComputerHolder?
          */
         fun BlockEntity.getBugComputerHolder(): WormComputerHolder? {
-            if (this.persistentData.contains(INFECTED_BLOCK_FLAG))
-                return INSTANCE.getWormComputerHolder(this.persistentData.getInt(INFECTED_BLOCK_FLAG))
+            if (this.persistentData.contains(INFECTED_FLAG))
+                return INSTANCE.getWormComputerHolder(this.persistentData.getInt(INFECTED_FLAG))
             return null
         }
 
@@ -46,8 +45,8 @@ class BugComputerHolderRegister(private var idCounter: Int = 0) {
          * @return ParasiteComputerHolder?
          */
         fun Entity.getBugComputerHolder(): ParasiteComputerHolder? {
-            if (this.persistentData.contains(INFECTED_BLOCK_FLAG))
-                return INSTANCE.getParasiteComputerHolder(this.persistentData.getInt(INFECTED_BLOCK_FLAG))
+            if (this.persistentData.contains(INFECTED_FLAG))
+                return INSTANCE.getParasiteComputerHolder(this.persistentData.getInt(INFECTED_FLAG))
             return null
         }
 
