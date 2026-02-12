@@ -1,21 +1,16 @@
 pluginManagement {
     repositories {
+        maven { url "https://maven.fabricmc.net/" }
+        maven { url "https://maven.architectury.dev/" }
+        maven { url "https://maven.minecraftforge.net/" }
         gradlePluginPortal()
-        maven {
-            name "tterrag maven"
-            url "https://maven.tterrag.com/"
-        }
-
-        maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net/'
-        }
-    }
-    plugins {
-        id 'org.jetbrains.kotlin.jvm' version '2.0.0'
     }
 }
 
-plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
-}
+include("common")
+include("fabric-like")
+include("fabric")
+include("quilt")
+include("forge")
+
+rootProject.name = "creative-computer-bugs"
